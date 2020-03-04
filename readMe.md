@@ -7,7 +7,7 @@
 5. Go to https://www.mongodb.com/ and get the URI connection and enter your username, password and mongo_cluster_name into the appropriate fields
 6. Type in your terminal **nodemon -L index.js** in vagrant or **nodemon index.js** in a non-vagrant set up to boot up the server
 7. Next, you will want to open the file on your browser by either going to https://localhost:3000 **or** 192.168.33.10:3000
-  * As long as you are on port 3000 then you should be able to view the app
+   * As long as you are on port 3000 then you should be able to view the app
 8. Endpoints:
 
 Endpoints    |Description                     |Method|
