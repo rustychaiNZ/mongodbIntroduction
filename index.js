@@ -12,7 +12,10 @@ const config = require('./config.json');
 // external json data from mockaroo
 // const product = require('./products.json');
 const dbProduct = require('./models/products.js');
-const User = require('./models/users.js')
+// Gets user model
+const User = require('./models/users.js');
+// Gets product model
+const Product = require('./models/products.js');
 // Sets the port to output to
 const port = 3000;
 
@@ -62,8 +65,7 @@ app.get('/allProducts', (req,res)=>{
 // });
 
 // Register the users 
-app.post('/registerUser' , (req,res) =>{
-
+app.post('/registerUser' , (req,res) =>{ 
 	// If the user inputs an already exsisting user name, then this function will ask the user to enter another name
 	User.findOne({username:req.body.username},(err,userResult) =>{
 		if(userResult){
@@ -108,6 +110,28 @@ app.post('/loginUser' , (req,res) =>{
 		}
 		else{
 			res.send('User is not found. Please register');
+		}
+	});
+});
+
+// Adding a product
+app.post('/addProduct' , (req,res) =>{
+	Product.findOne({productName:req.body.productName},(err,productResult) =>{
+		if(productResult){
+			res.send('There is already an exsisting product by that name')
+		}
+		else{
+			// const hash = bcryptjs.hashSync(req.body.quantity);
+			const product = new Product({
+				// Creates a new id for products dynamically
+				_id : new mongoose.Types.ObjectId,
+				productName : req.body.productName,
+				quantity : req.body.quantity,
+				price : req.body.prices
+			});
+			product.save().then(result =>{
+				res.send(result);
+			}).catch(err =>res.send(err));
 		}
 	});
 });
