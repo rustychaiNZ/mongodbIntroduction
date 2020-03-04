@@ -50,16 +50,16 @@ app.get('/allProducts', (req,res)=>{
 
 });
 
-app.get('/products/p=:id', (req,res)=>{
-	const idParam = req.params.id;
-
-	for (let i = 0; i < product.length; i++){
-		if (idParam.toString() === product[i].id.toString()) {
-			res.json(product[i]);
-		}
-	}
-	
-});
+// app.get('/products/p=:id', (req,res)=>{
+	// const idParam = req.params.id;
+// 
+	// for (let i = 0; i < product.length; i++){
+		// if (idParam.toString() === product[i].id.toString()) {
+			// res.json(product[i]);
+		// }
+	// }
+	// 
+// });
 
 // Register the users 
 app.post('/registerUser' , (req,res) =>{
@@ -111,6 +111,8 @@ app.post('/loginUser' , (req,res) =>{
 		}
 	});
 });
+
+
 
 //keep this always at the bottom so that you can see the errors reported
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
