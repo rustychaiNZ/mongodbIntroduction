@@ -15,3 +15,5 @@ Endpoints    |Description                     |Method|
 /registerUser|**post** the new user to db     |POST  |
 /allUsers    |**get** all users from db       |GET   |
 /loginUser   |check for existing user to login|Post  |
+
+9. To see data being posted, click on cluster->collections->shop->users
