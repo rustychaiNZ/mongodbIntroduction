@@ -9,6 +9,7 @@
 7. Next, you will want to open the file on your browser by either going to https://localhost:3000 **or** 192.168.33.10:3000
   * As long as you are on port 3000 then you should be able to view the app
 8. Endpoints:
+
 Endpoints    |Description                     |Method|
 -------------|--------------------------------|------|
 /registerUser|**post** the new user to db     |POST  |
