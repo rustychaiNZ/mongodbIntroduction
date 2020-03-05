@@ -16,4 +16,4 @@ Endpoints    |Description                     |Method|
 /allUsers    |**get** all users from db       |GET   |
 /loginUser   |check for existing user to login|Post  |
 
-9. To see data being posted, click on cluster->collections->shop->users
+9. To see data being posted, click on cluster->collections->shop->users on MongoDB

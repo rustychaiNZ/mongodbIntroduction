@@ -140,14 +140,38 @@ app.get('/viewProducts' , (req,res) =>{
 	});
 });
 
-// Add product quantity of products to exsiting product
-app.post('/updateProduct' , (req,res) =>{
-	db.Product.updateOne({productName:req.body.productName},(err,productResult) =>{
-		$set: {quantity : req.body.quantity}
-	});
+// Delete a product
+app.delete('/deleteProduct/:id' , (req,res) =>{ // Do not incoude the colon when deleteing
+	const idParam = req.params.id;
+	// _id refers to the product id in MongoDB
+	Product.findOne({_id : idParam} , (err,product) =>{
+		if(product){
+			Product.deleteOne({_id:idParam},err =>{
+				res.send('Product has been deleted');
+			})
+		}
+		else{
+			res.send('Product not found');
+		}
+	}).catch(err => res.send(err));
 });
 
-
+// Update a product
+app.patch('/updateProduct/:id' , (req,res) =>{
+	// Stores inputted product ID
+	const idParam = req.params.id;
+	// Finds the product relating to the inputted id
+	Product.findById(idParam , (err,product) =>{
+		const updatedProduct = {
+			productName : req.body.productName,
+			quantity : req.body.quantity,
+			price : req.body.price
+		};
+		Product.updateOne({_id:idParam}, updatedProduct).then(result =>{
+			res.send(result);
+		}).catch(err =>res.send(err));
+	}).catch(err =>res.send('Produc not found'));
+});
 
 //keep this always at the bottom so that you can see the errors reported
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

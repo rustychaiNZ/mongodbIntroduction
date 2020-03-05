@@ -1,3 +1,4 @@
+// Since we are using mogoose, we need to require it
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
