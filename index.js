@@ -145,32 +145,37 @@ app.delete('/deleteProduct/:id' , (req,res) =>{ // Do not incoude the colon when
 	const idParam = req.params.id;
 	// _id refers to the product id in MongoDB
 	Product.findOne({_id : idParam} , (err,product) =>{
+		// If the product matches the id, run script
 		if(product){
-			Product.deleteOne({_id:idParam},err =>{
+			// Deletes the one and only product matching the id
+			Product.deleteOne({_id : idParam},err =>{
 				res.send('Product has been deleted');
 			})
 		}
+		// If the user has entered the wrong id and the product cannot be found
 		else{
 			res.send('Product not found');
 		}
 	}).catch(err => res.send(err));
 });
 
-// Update a product
+// Update a product - as is, needs to inlcude all of the propertys with the product otherwise it will return a value of null as it updates all of the properties of the object
 app.patch('/updateProduct/:id' , (req,res) =>{
 	// Stores inputted product ID
 	const idParam = req.params.id;
 	// Finds the product relating to the inputted id
 	Product.findById(idParam , (err,product) =>{
+		// Updates the listed properties below
 		const updatedProduct = {
 			productName : req.body.productName,
 			quantity : req.body.quantity,
 			price : req.body.price
 		};
+		// Updates the one matching product instead of all of them
 		Product.updateOne({_id:idParam}, updatedProduct).then(result =>{
 			res.send(result);
 		}).catch(err =>res.send(err));
-	}).catch(err =>res.send('Produc not found'));
+	}).catch(err =>res.send('Produc not found')); // If the user has entered the wrong id and the product cannot be found
 });
 
 //keep this always at the bottom so that you can see the errors reported
