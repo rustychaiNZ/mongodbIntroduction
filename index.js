@@ -9,9 +9,6 @@ const cors = require('cors');
 const bcryptjs = require('bcryptjs');
 // Used to store the credentials 
 const config = require('./config.json');
-// external json data from mockaroo
-// const product = require('./products.json');
-const dbProduct = require('./models/products.js');
 // Gets user model
 const User = require('./models/users.js');
 // Gets product model
@@ -121,18 +118,32 @@ app.post('/addProduct' , (req,res) =>{
 			res.send('There is already an exsisting product by that name')
 		}
 		else{
-			// const hash = bcryptjs.hashSync(req.body.quantity);
 			const product = new Product({
 				// Creates a new id for products dynamically
 				_id : new mongoose.Types.ObjectId,
 				productName : req.body.productName,
 				quantity : req.body.quantity,
-				price : req.body.prices
+				price : req.body.price
 			});
+			// Pushes product to database
 			product.save().then(result =>{
 				res.send(result);
 			}).catch(err =>res.send(err));
 		}
+	});
+});
+
+// View products
+app.get('/viewProducts' , (req,res) =>{
+	Product.find().then(result =>{
+		res.send(result);
+	});
+});
+
+// Add product quantity of products to exsiting product
+app.post('/updateProduct' , (req,res) =>{
+	db.Product.updateOne({productName:req.body.productName},(err,productResult) =>{
+		$set: {quantity : req.body.quantity}
 	});
 });
 
