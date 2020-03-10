@@ -84,7 +84,7 @@ app.post('/registerUser' , (req,res) =>{
 	// If the user inputs an already exsisting user name, then this function will ask the user to enter another name
 	User.findOne({username:req.body.username},(err,userResult) =>{
 		if(userResult){
-			res.send('Username has already been taken :(. Please try entering another username.')
+			res.send('Exsisting username');
 		}
 		else{
 			const hash = bcryptjs.hashSync(req.body.password);
