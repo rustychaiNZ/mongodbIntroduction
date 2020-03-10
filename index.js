@@ -141,7 +141,8 @@ app.post('/addProduct' , (req,res) =>{
 				_id : new mongoose.Types.ObjectId,
 				productName : req.body.productName,
 				quantity : req.body.quantity,
-				price : req.body.price
+				price : req.body.price,
+				user_id : req.body.user_id
 			});
 			// Pushes product to database
 			product.save().then(result =>{
@@ -185,15 +186,16 @@ app.patch('/updateProduct/:id' , (req,res) =>{
 	Product.findById(idParam , (err,product) =>{
 		// Updates the listed properties below
 		const updatedProduct = {
-			productName : req.body.productName,
+			productName : req.body.name,
 			quantity : req.body.quantity,
-			price : req.body.price
+			price : req.body.price,
+			user_id : req.body.userId
 		};
 		// Updates the one matching product instead of all of them
 		Product.updateOne({_id:idParam}, updatedProduct).then(result =>{
 			res.send(result);
 		}).catch(err =>res.send(err));
-	}).catch(err =>res.send('Produc not found')); // If the user has entered the wrong id and the product cannot be found
+	}).catch(err =>res.send('Product not found')); // If the user has entered the wrong id and the product cannot be found
 });
 
 //keep this always at the bottom so that you can see the errors reported
